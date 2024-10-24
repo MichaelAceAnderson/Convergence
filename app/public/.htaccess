@@ -1,0 +1,31 @@
+# Empêcher la navigation à travers les fichiers du serveur web
+Options -Indexes
+
+# Empêcher l'accès aux fichiers .htaccess, .htpasswd & .htgroup etc...
+<FilesMatch "^\.ht">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# Empêcher l'accès aux fichiers .gitignore & .gitkeep
+<FilesMatch "^\.git">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# Empêcher l'accès aux fichiers du dossier Conception
+<FilesMatch "^Conception">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# Rediriger les erreurs vers la page d'erreur
+ErrorDocument 401 /?page=error&code=401
+ErrorDocument 403 /?page=error&code=403
+ErrorDocument 404 /?page=error&code=404
+ErrorDocument 406 /?page=error&code=406
+ErrorDocument 500 /?page=error&code=500
+ErrorDocument 503 /?page=error&code=503

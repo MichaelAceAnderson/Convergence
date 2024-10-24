@@ -1,0 +1,581 @@
+/* Variables CSS & règles du thème */
+:root {
+  --theme-color1: #006eff;
+  --theme-color1-darker: #0051c2;
+  --theme-color2: #333333;
+  --theme-text-outline: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+    1px 1px 0 black;
+  --theme-text-color1: white;
+  --theme-text-color2: white;
+  --theme-box-shadow: 0 0 3px rgb(0 0 0 / 20%);
+}
+
+/* Polices d'écriture */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Poppins"), local("Poppins-Regular"),
+    url(/style/fonts/poppins.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gill Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Gill Sans"),
+    url(/style/fonts/gill_sans.otf) format("opentype");
+  font-display: swap;
+}
+
+/* Propriétés du corps */
+body {
+  background-image: url("/img/c_background.png");
+  background-attachment: fixed;
+  font-family: "Poppins", "Calibri", sans-serif;
+  margin: 0;
+  color: var(--theme-text-color1);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Menu de gauche */
+nav {
+  height: 100vh;
+  width: 55px;
+  overflow: hidden;
+  transition: ease-out 0.2s;
+  position: fixed;
+  top: 0;
+  text-overflow: ellipsis;
+  color: var(--theme-text-color2);
+}
+
+/* Pseudo-élément pour le fond du menu de gauche */
+nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/c_polygons.png");
+  background-size: cover;
+  background-attachment: fixed;
+  filter: blur(3px);
+}
+
+/* Propriétés du menu lorsqu'il est survolé par le curseur */
+nav:hover {
+  width: 160px;
+}
+
+/* Paragraphes dans les list-items du nav */
+nav ul a li p {
+  visibility: hidden;
+}
+
+/* Paragraphes dans les list-items du nav survolé */
+nav:hover ul a li p {
+  visibility: visible;
+}
+
+/* En-tête du menu de gauche */
+nav .header {
+  font-family: "Gill Sans", sans-serif;
+  font-weight: bold;
+  display: block;
+  height: 50px;
+  padding: 5px;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* En-tête */
+nav .header * {
+  display: inline;
+  vertical-align: middle;
+  max-height: 100%;
+}
+
+/* Logo */
+nav .header img {
+  filter: drop-shadow(0px 0px 1px black);
+}
+
+/* Liste des éléments du menu de gauche */
+nav ul {
+  position: absolute;
+  padding: 0;
+}
+
+/* List-items dans la liste du nav */
+nav ul a li {
+  list-style: none;
+  width: 160px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Tous les éléments contenus dans un list-item */
+nav ul a li * {
+  font-size: 16px;
+  display: inline-block;
+}
+
+/* Icône font-awesome dans le list-item */
+nav ul a li i {
+  font-size: 20px;
+}
+
+/* Liens dans les list-items dans le nav */
+nav ul a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 5px 15px;
+  background-position: center;
+}
+
+/* Liens survolés dans les list-items dans le nav */
+/* Source: https://codepen.io/finnhvman/pen/jLXKJw */
+nav ul a:hover {
+  background: rgba(255, 255, 255, 0.2) radial-gradient(circle, transparent 1%, rgb(255, 255, 255, 0.2) 1%) center/15000%;
+  transition: background 0.8s;
+}
+
+/* Liens cliqués dans les list-items dans le nav */
+nav ul a:active {
+  background-color: var(--theme-color1-darker);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
+/* Section de déconnexion */
+nav .logout {
+  position: absolute;
+  bottom: 0px;
+}
+
+/* Bouton de déconnexion */
+nav .logout input[type="submit"] {
+  padding: 5px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Bouton de déconnexion survolé */
+nav .logout input[type="submit"]:hover {
+  background: inherit;
+}
+
+/* Bouton de déconnexion actif */
+nav .logout input[type="submit"]:active {
+  background: inherit;
+}
+
+/* Code destiné à customiser la scrollbar */
+/* Barre de défilement */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Piste de l'ascenseur */
+::-webkit-scrollbar-track {
+  background: var(--theme-color2);
+}
+
+/* Ascenseur */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--theme-color1);
+}
+
+/* Ascenseur cliqué */
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--theme-color1-darker);
+}
+
+/* Contenu de la page (à droite du menu) */
+.main {
+  position: absolute;
+  left: 200px;
+  z-index: -1;
+  top: 0;
+}
+
+/* Notifications */
+.notification {
+  border-left: 8px solid rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  padding: 10px;
+  display: block;
+  background: rgb(150 150 150 / 80%);
+  text-align: center;
+  font-size: 20px;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Avertissements */
+.notification.warning {
+  background: rgba(255, 200, 0, 0.8);
+}
+
+/* Erreurs */
+.notification.error {
+  background: rgb(150 0 0 / 80%);
+}
+
+/* Succès */
+.notification.success {
+  background: rgb(0 150 0 / 80%);
+}
+
+/* Titre de section */
+.section-title h1 {
+  font-size: 30px;
+  margin: 5px;
+}
+
+/* Barre de titre de section */
+.section-title hr {
+  max-width: 30%;
+  height: 5px;
+  margin: 15px;
+  background: var(--theme-text-color1);
+}
+
+/* Liens dans les titres de section */
+.section-title h1 a {
+  color: inherit;
+}
+
+/* Conteneur de post */
+.post-block .interactions {
+  background-color: var(--theme-color2);
+  box-shadow: var(--theme-box-shadow);
+  border-radius: 10px;
+  max-width: 50px;
+  padding: 5px;
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.post-block .interactions button {
+  margin: 5px auto;
+  border: none;
+  background-color: var(--theme-color1);
+  box-shadow: var(--theme-box-shadow);
+  padding: 5px;
+  border-radius: 10px;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+  background-position: center;
+}
+
+.post-block .interactions img {
+  width: 100%;
+}
+
+.post-block .post {
+  background-color: var(--theme-color2);
+  box-shadow: var(--theme-box-shadow);
+  border-radius: 10px;
+  width: 500px;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Barre d'auteur du post */
+.post-block .post .author {
+  border-radius: 10px;
+  background-color: rgb(0 0 0 / 20%);
+  box-shadow: var(--theme-box-shadow);
+  margin: 0px auto 10px auto;
+  text-shadow: var(--theme-text-outline);
+  letter-spacing: 2px;
+}
+
+/* Éléménts enfants de la barre d'auteur */
+.post-block .post .author * {
+  display: inline-block;
+  margin: 0px;
+  vertical-align: middle;
+}
+
+/* Photo de profil de l'auteur */
+.post-block .post .author img {
+  padding: 5px;
+  border-radius: 50px;
+  height: 40px;
+}
+
+/* Pseudo de l'auteur */
+.post-block .post .author p {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--theme-color1);
+  margin: auto 5px;
+}
+
+/* Survol du pseudo */
+.post-block .post .author p:hover {
+  color: var(--theme-color1-darker);
+  text-decoration: underline;
+  transition: 0.5s;
+}
+
+/* Media du post */
+.post-block .post .content img,
+.post-block .post .content video {
+  display: block;
+  box-shadow: var(--theme-box-shadow);
+  border-radius: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Date de création du post */
+.post-block .post .content .timestamp {
+  text-align: right;
+  color: var(--theme-text-color1);
+  font-size: 15px;
+  margin: 0 5px;
+  text-shadow: var(--theme-box-shadow);
+}
+
+/* Page de profil */
+.profile {
+  margin: 10px;
+  width: 60vw;
+  background-color: var(--theme-color2);
+  box-shadow: var(--theme-box-shadow);
+  border-radius: 10px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* Section post de la page de profil */
+.profile .container {
+  background-color: var(--theme-color2);
+  margin: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* Conteneur de post individuel */
+.profile .container .post-block {
+  background-color: var(--theme-color2);
+  display: inline-block;
+  width: 275px;
+  height: 275px;
+  vertical-align: middle;
+  margin: 10px;
+  overflow: hidden;
+  box-shadow: var(--theme-box-shadow);
+}
+
+/* Posts contenus dans le conteneur */
+.profile .container .post-block a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Images dans le conteneur de media */
+.profile .container .post-block img,
+.profile .container .post-block video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Barre d'identification du profil */
+.profile .identity {
+  margin: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: var(--theme-color1);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Photo de profil dans la barre d'identification */
+.profile .identity img {
+  box-shadow: var(--theme-box-shadow);
+  border-radius: 50px;
+  height: 50px;
+}
+
+/* Photo de profil dans un formulaire survolé dans la barre d'identification */
+.profile .identity form:hover img {
+  cursor: pointer;
+}
+
+/* Rendre les icônes font-awesome invisibles par défaut */
+.profile .identity form label i {
+  visibility: hidden;
+  position: relative;
+  right: 30px;
+  top: -30px;
+  display: inline-block;
+  width: 0;
+}
+
+/* Rendre les icônes font-awesome visibles au survol des formulaires de la barre d'identité */
+.profile .identity form:hover label i {
+  visibility: visible;
+}
+
+/* Éléménts dans la barre d'identification */
+.profile .identity * {
+  display: inline;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+/* Formulaires dans la barre d'identification */
+.profile .identity form,
+.profile .identity form * {
+  display: inline;
+}
+
+/* Section d'ajout de post */
+.post-add {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  margin: 10px auto;
+}
+
+/* Éléments dans la ection d'ajout de post */
+.post-add * {
+  width: 100%;
+}
+
+/* Étiquettes de champs de saisie des formulaires */
+form label {
+  margin: 0;
+  display: block;
+}
+
+/* Champs de saisie des formulaires du contenu */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+form input[type="date"],
+form input[type="time"],
+form input[type="url"],
+form input[type="tel"],
+form input[type="search"],
+form input[type="color"],
+form textarea {
+  box-shadow: var(--theme-box-shadow);
+  border: none;
+  padding: 5px;
+  margin: 5px;
+  display: block;
+  border-radius: 10px;
+  text-overflow: ellipsis;
+}
+
+/* Boutons de formulaire du contenu */
+form input[type="submit"],
+form button {
+  background-color: var(--theme-color1);
+  box-shadow: var(--theme-box-shadow);
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+  background-position: center;
+}
+
+/* Boutons de formulaire du contenu survolés */
+/* Source: https://codepen.io/finnhvman/pen/jLXKJw */
+form input[type="submit"]:hover,
+form button:hover {
+  background: rgba(255, 255, 255, 0.2) radial-gradient(circle, transparent 1%, rgb(255, 255, 255, 0.2) 1%) center/15000%;
+  transition: background 0.8s;
+}
+
+/* Boutons de formulaire du contenu cliqués */
+form input[type="submit"]:active,
+form button:active {
+  background-color: var(--theme-color1-darker);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* Tableau de résultats de recherche */
+table.search-results {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 50vw;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Cellule de tableau de résultats */
+table.search-results td {
+  padding: 10px;
+}
+
+/* Image dans une cellule de tableau de résultats */
+table.search-results td img {
+  height: 50px;
+  border-radius: 50px;
+  filter: drop-shadow(0px 0px 1px rgb(0 0 0/ 20%));
+}
+
+/* Éléments dans une cellule de tableau de résultats */
+table.search-results td * {
+  padding: 5px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Liens dans une cellule de tableau de résultats */
+table.search-results td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Paragraphes dans les liens survolés dans une cellule de tableau de résultats */
+table.search-results td a:hover p {
+  text-decoration: underline;
+}
+
+/* Ligne impaire de tableau de résultats */
+table.search-results tr:nth-child(odd) {
+  background-color: var(--theme-color2);
+}
+
+/* Ligne paire de tableau de résultats */
+table.search-results tr:nth-child(even) {
+  background-color: var(--theme-color1);
+}
