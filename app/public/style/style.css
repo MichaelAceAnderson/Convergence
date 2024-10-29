@@ -1,0 +1,579 @@
+/* CSS Variables & Theme Rules */
+:root {
+	--theme-color1: #006eff;
+	--theme-color1-darker: #0051c2;
+	--theme-color2: #333333;
+	--theme-text-outline: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
+		1px 1px 0 black;
+	--theme-text-color1: white;
+	--theme-text-color2: white;
+	--theme-box-shadow: 0 0 3px rgb(0 0 0 / 20%);
+}
+
+/* Fonts */
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Poppins"), local("Poppins-Regular"),
+		url(/style/fonts/poppins.ttf) format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Gill Sans";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Gill Sans"),
+		url(/style/fonts/gill_sans.otf) format("opentype");
+	font-display: swap;
+}
+
+/* Body Properties */
+body {
+	background-image: url("/img/c_background.png");
+	background-attachment: fixed;
+	font-family: "Poppins", "Calibri", sans-serif;
+	margin: 0;
+	color: var(--theme-text-color1);
+	text-shadow: var(--theme-text-outline);
+}
+
+/* Left Menu */
+nav {
+	height: 100vh;
+	width: 55px;
+	overflow: hidden;
+	transition: ease-out 0.2s;
+	position: fixed;
+	top: 0;
+	text-overflow: ellipsis;
+	color: var(--theme-text-color2);
+}
+
+/* Pseudo-element for the left menu background */
+nav::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url("/img/c_polygons.png");
+	background-size: cover;
+	background-attachment: fixed;
+	filter: blur(3px);
+}
+
+/* Menu properties when hovered by the cursor */
+nav:hover {
+	width: 160px;
+}
+
+/* Paragraphs in nav list-items */
+nav ul a li p {
+	visibility: hidden;
+}
+
+/* Paragraphs in nav list-items when hovered */
+nav:hover ul a li p {
+	visibility: visible;
+}
+
+/* Left menu header */
+nav .header {
+	font-family: "Gill Sans", sans-serif;
+	font-weight: bold;
+	display: block;
+	height: 50px;
+	padding: 5px;
+	margin: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+	color: var(--theme-text-color2);
+	text-shadow: var(--theme-text-outline);
+}
+
+/* Header elements */
+nav .header * {
+	display: inline;
+	vertical-align: middle;
+	max-height: 100%;
+}
+
+/* Logo */
+nav .header img {
+	filter: drop-shadow(0px 0px 1px black);
+}
+
+/* List of left menu items */
+nav ul {
+	position: absolute;
+	padding: 0;
+}
+
+/* List-items in nav list */
+nav ul a li {
+	list-style: none;
+	width: 160px;
+	font-family: "Poppins", sans-serif;
+}
+
+/* All elements contained in a list-item */
+nav ul a li * {
+	font-size: 16px;
+	display: inline-block;
+}
+
+/* Font-awesome icon in list-item */
+nav ul a li i {
+	font-size: 20px;
+}
+
+/* Links in nav list-items */
+nav ul a {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	padding: 5px 15px;
+	background-position: center;
+}
+
+/* Links hovered in nav list-items */
+/* Source: https://codepen.io/finnhvman/pen/jLXKJw */
+nav ul a:hover {
+	background: rgba(255, 255, 255, 0.2) radial-gradient(circle, transparent 1%, rgb(255, 255, 255, 0.2) 1%) center/15000%;
+	transition: background 0.8s;
+}
+
+/* Links clicked in nav list-items */
+nav ul a:active {
+	background-color: var(--theme-color1-darker);
+	background-size: 100%;
+	transition: background 0s;
+}
+
+/* Logout section */
+nav .logout {
+	position: absolute;
+	bottom: 0px;
+}
+
+/* Logout button */
+nav .logout input[type="submit"] {
+	padding: 5px;
+	border: none;
+	background: none;
+	box-shadow: none;
+	font-family: inherit;
+	cursor: pointer;
+	color: var(--theme-text-color2);
+	text-shadow: var(--theme-text-outline);
+}
+
+/* Logout button hovered */
+nav .logout input[type="submit"]:hover {
+	background: inherit;
+}
+
+/* Logout button active */
+nav .logout input[type="submit"]:active {
+	background: inherit;
+}
+
+/* Code to customize the scrollbar */
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 15px;
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+	background: var(--theme-color2);
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--theme-color1);
+}
+
+/* Scrollbar thumb active */
+::-webkit-scrollbar-thumb:active {
+	background-color: var(--theme-color1-darker);
+}
+
+/* Page content (to the right of the menu) */
+.main {
+	position: absolute;
+	left: 200px;
+	z-index: -1;
+	top: 0;
+}
+
+/* Notifications */
+.notification {
+	border-left: 8px solid rgba(0, 0, 0, 0.2);
+	margin: 10px;
+	padding: 10px;
+	display: block;
+	background: rgb(150 150 150 / 80%);
+	text-align: center;
+	font-size: 20px;
+	color: var(--theme-text-color2);
+	text-shadow: var(--theme-text-outline);
+}
+
+/* Warnings */
+.notification.warning {
+	background: rgba(255, 200, 0, 0.8);
+}
+/* Errors */
+.notification.error {
+	background: rgb(150 0 0 / 80%);
+}
+
+/* Success */
+.notification.success {
+	background: rgb(0 150 0 / 80%);
+}
+
+/* Section title */
+.section-title h1 {
+	font-size: 30px;
+	margin: 5px;
+}
+
+/* Section title bar */
+.section-title hr {
+	max-width: 30%;
+	height: 5px;
+	margin: 15px;
+	background: var(--theme-text-color1);
+}
+
+/* Links in section titles */
+.section-title h1 a {
+	color: inherit;
+}
+
+/* Post container */
+.post-block .interactions {
+	background-color: var(--theme-color2);
+	box-shadow: var(--theme-box-shadow);
+	border-radius: 10px;
+	max-width: 50px;
+	padding: 5px;
+	margin: 10px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+
+.post-block .interactions button {
+	margin: 5px auto;
+	border: none;
+	background-color: var(--theme-color1);
+	box-shadow: var(--theme-box-shadow);
+	padding: 5px;
+	border-radius: 10px;
+	display: block;
+	font-weight: bold;
+	cursor: pointer;
+	color: var(--theme-text-color2);
+	text-shadow: var(--theme-text-outline);
+	background-position: center;
+}
+
+.post-block .interactions img {
+	width: 100%;
+}
+
+.post-block .post {
+	background-color: var(--theme-color2);
+	box-shadow: var(--theme-box-shadow);
+	border-radius: 10px;
+	width: 500px;
+	padding: 10px;
+	margin: 10px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* Post author bar */
+.post-block .post .author {
+	border-radius: 10px;
+	background-color: rgb(0 0 0 / 20%);
+	box-shadow: var(--theme-box-shadow);
+	margin: 0px auto 10px auto;
+	text-shadow: var(--theme-text-outline);
+	letter-spacing: 2px;
+}
+
+/* Child elements of the author bar */
+.post-block .post .author * {
+	display: inline-block;
+	margin: 0px;
+	vertical-align: middle;
+}
+
+/* Author profile picture */
+.post-block .post .author img {
+	padding: 5px;
+	border-radius: 50px;
+	height: 40px;
+}
+
+/* Author username */
+.post-block .post .author p {
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--theme-color1);
+	margin: auto 5px;
+}
+
+/* Hover effect on username */
+.post-block .post .author p:hover {
+	color: var(--theme-color1-darker);
+	text-decoration: underline;
+	transition: 0.5s;
+}
+
+/* Post media */
+.post-block .post .content img,
+.post-block .post .content video {
+	display: block;
+	box-shadow: var(--theme-box-shadow);
+	border-radius: 10px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+/* Post creation date */
+.post-block .post .content .timestamp {
+	text-align: right;
+	color: var(--theme-text-color1);
+	font-size: 15px;
+	margin: 0 5px;
+	text-shadow: var(--theme-box-shadow);
+}
+
+/* Profile page */
+.profile {
+	margin: 10px;
+	width: 60vw;
+	background-color: var(--theme-color2);
+	box-shadow: var(--theme-box-shadow);
+	border-radius: 10px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+/* Post section of the profile page */
+.profile .container {
+	background-color: var(--theme-color2);
+	margin: 10px;
+	display: block;
+	text-align: center;
+}
+
+/* Individual post container */
+.profile .container .post-block {
+	background-color: var(--theme-color2);
+	display: inline-block;
+	width: 275px;
+	height: 275px;
+	vertical-align: middle;
+	margin: 10px;
+	overflow: hidden;
+	box-shadow: var(--theme-box-shadow);
+}
+
+/* Posts contained in the container */
+.profile .container .post-block a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Images in the media container */
+.profile .container .post-block img,
+.profile .container .post-block video {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* Profile identification bar */
+.profile .identity {
+	margin: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	color: var(--theme-color1);
+	text-shadow: var(--theme-text-outline);
+}
+
+/* Profile picture in the identification bar */
+.profile .identity img {
+	box-shadow: var(--theme-box-shadow);
+	border-radius: 50px;
+	height: 50px;
+}
+
+/* Profile picture in a hovered form in the identification bar */
+.profile .identity form:hover img {
+	cursor: pointer;
+}
+
+/* Make font-awesome icons invisible by default */
+.profile .identity form label i {
+  visibility: hidden;
+  position: relative;
+  right: 30px;
+  top: -30px;
+  display: inline-block;
+  width: 0;
+}
+
+/* Make font-awesome icons visible when hovering over forms in the identity bar */
+.profile .identity form:hover label i {
+  visibility: visible;
+}
+
+/* Elements in the identification bar */
+.profile .identity * {
+  display: inline;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+/* Forms in the identification bar */
+.profile .identity form,
+.profile .identity form * {
+  display: inline;
+}
+
+/* Post addition section */
+.post-add {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  margin: 10px auto;
+}
+
+/* Elements in the post addition section */
+.post-add * {
+  width: 100%;
+}
+
+/* Form field labels */
+form label {
+  margin: 0;
+  display: block;
+}
+
+/* Form input fields */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+form input[type="date"],
+form input[type="time"],
+form input[type="url"],
+form input[type="tel"],
+form input[type="search"],
+form input[type="color"],
+form textarea {
+  box-shadow: var(--theme-box-shadow);
+  border: none;
+  padding: 5px;
+  margin: 5px;
+  display: block;
+  border-radius: 10px;
+  text-overflow: ellipsis;
+}
+
+/* Form buttons */
+form input[type="submit"],
+form button {
+  background-color: var(--theme-color1);
+  box-shadow: var(--theme-box-shadow);
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+  background-position: center;
+}
+
+/* Form buttons hovered */
+/* Source: https://codepen.io/finnhvman/pen/jLXKJw */
+form input[type="submit"]:hover,
+form button:hover {
+  background: rgba(255, 255, 255, 0.2) radial-gradient(circle, transparent 1%, rgb(255, 255, 255, 0.2) 1%) center/15000%;
+  transition: background 0.8s;
+}
+
+/* Form buttons clicked */
+form input[type="submit"]:active,
+form button:active {
+  background-color: var(--theme-color1-darker);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* Search results table */
+table.search-results {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 50vw;
+  color: var(--theme-text-color2);
+  text-shadow: var(--theme-text-outline);
+}
+
+/* Search results table cell */
+table.search-results td {
+  padding: 10px;
+}
+
+/* Image in a search results table cell */
+table.search-results td img {
+  height: 50px;
+  border-radius: 50px;
+  filter: drop-shadow(0px 0px 1px rgb(0 0 0/ 20%));
+}
+
+/* Elements in a search results table cell */
+table.search-results td * {
+  padding: 5px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Links in a search results table cell */
+table.search-results td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Paragraphs in hovered links in a search results table cell */
+table.search-results td a:hover p {
+  text-decoration: underline;
+}
+
+/* Odd row in search results table */
+table.search-results tr:nth-child(odd) {
+  background-color: var(--theme-color2);
+}
+
+/* Even row in search results table */
+table.search-results tr:nth-child(even) {
+  background-color: var(--theme-color1);
+}

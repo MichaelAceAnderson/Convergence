@@ -1,0 +1,24 @@
+# Prevent navigation through the web server files
+Options -Indexes
+
+# Prevent access to .htaccess, .htpasswd & .htgroup files etc...
+<FilesMatch "^\.ht">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# Prevent access to .gitignore & .gitkeep files
+<FilesMatch "^\.git">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# Redirect errors to the error page
+ErrorDocument 401 /?page=error&code=401
+ErrorDocument 403 /?page=error&code=403
+ErrorDocument 404 /?page=error&code=404
+ErrorDocument 406 /?page=error&code=406
+ErrorDocument 500 /?page=error&code=500
+ErrorDocument 503 /?page=error&code=503

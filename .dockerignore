@@ -1,0 +1,11 @@
+# Ignore Docker files
+.docker/**/Dockerfile
+.docker/**/.env*
+# Ignore all files and folders starting with ".git"
+**/.git*
+# Ignore all markdown information files
+**/*.md
+# Ignore Docker scripts
+**/docker-*.sh
+# Ignore the Makefile
+Makefile
