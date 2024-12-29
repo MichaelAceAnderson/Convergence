@@ -1,6 +1,6 @@
 <nav>
 	<div class="header">
-		<img src="/img/c_logo-neon.png" alt="logo" />
+		<img src="/img/c_logo_neon.svg" alt="logo" />
 		<p>Convergence</p>
 	</div>
 	<ul>
