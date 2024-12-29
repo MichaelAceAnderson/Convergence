@@ -1,0 +1,89 @@
+services:
+  c-mariadb-s:
+    container_name: "c-mariadb-c"
+    build:
+      context: ../
+      dockerfile: ".docker/mariadb/Dockerfile.dev"
+    env_file:
+      - "mariadb/.env.dev"
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: "mariadb/data/"
+        target: "/var/lib/mysql/"
+        # Only for MacOS
+        consistency: consistent
+      - type: bind
+        source: "mariadb/logs/"
+        target: "/var/log/mysql/"
+        consistency: consistent
+    networks:
+      - c-back-network
+    ports:
+      - 3306:3306
+
+  c-adminer-s:
+    container_name: "c-adminer-c"
+    image: adminer
+    env_file:
+      - "adminer/.env.dev"
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      - c-back-network
+    depends_on:
+      - c-mariadb-s
+
+  c-php-s:
+    container_name: "c-php-c"
+    build:
+      context: ../
+      dockerfile: ".docker/php/Dockerfile.dev"
+    env_file:
+      - "mariadb/.env.dev"
+      - "php/.env.dev"
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: "../app/"
+        target: "/var/www/html/"
+        consistency: consistent
+      - type: bind
+        source: "php/logs/"
+        target: "/var/log/php/"
+        consistency: consistent
+    ports:
+      - "9000:9000"
+    networks:
+      - c-back-network
+    depends_on:
+      - c-mariadb-s
+
+  c-nginx-s:
+    container_name: "c-nginx-c"
+    build:
+      context: ../
+      dockerfile: ".docker/nginx/Dockerfile.dev"
+    env_file:
+      - "nginx/.env.dev"
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: "../app/"
+        target: "/var/www/html/"
+        consistency: consistent
+      - type: bind
+        source: "nginx/logs/"
+        target: "/var/log/nginx/"
+        consistency: consistent
+    ports:
+      - "80:80"
+    networks:
+      - c-back-network
+    depends_on:
+      - c-php-s
+
+networks:
+  c-back-network:
+    driver: bridge

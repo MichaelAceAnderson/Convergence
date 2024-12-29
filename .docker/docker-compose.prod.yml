@@ -1,0 +1,71 @@
+services:
+  c-mariadb-s:
+    container_name: "c-mariadb-c"
+    build:
+      context: ../
+      dockerfile: ".docker/mariadb/Dockerfile.prod"
+    env_file:
+      - "mariadb/.env.prod"
+    restart: on-failure
+    networks:
+      - c-back-network
+    ports:
+      - 3306:3306
+    volumes:
+      - c-mariadb-data:/var/lib/mysql/
+
+  c-adminer-s:
+    container_name: "c-adminer-c"
+    image: adminer
+    env_file:
+      - "adminer/.env.prod"
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      - c-back-network
+    depends_on:
+      - c-mariadb-s
+
+  c-php-s:
+    container_name: "c-php-c"
+    build:
+      context: ../
+      dockerfile: ".docker/php/Dockerfile.prod"
+    env_file:
+      - "mariadb/.env.prod"
+      - "php/.env.prod"
+    restart: on-failure
+    ports:
+      - "9000:9000"
+    networks:
+      - c-back-network
+    depends_on:
+      - c-mariadb-s
+
+  c-nginx-s:
+    container_name: "c-nginx-c"
+    build:
+      context: ../
+      dockerfile: ".docker/nginx/Dockerfile.prod"
+    env_file:
+      - "nginx/.env.prod"
+    restart: on-failure
+    ports:
+      - "80:80"
+    networks:
+      - c-back-network
+    depends_on:
+      - c-php-s
+
+networks:
+  c-back-network:
+    driver: bridge
+
+volumes:
+  c-mariadb-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: "./mariadb/data/"
+      o: bind

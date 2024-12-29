@@ -1,0 +1,17 @@
+# Ignore MacOS files
+**/.DS_Store
+# Do not track IDE configuration files
+.vscode/
+# Do not track logs
+**/*.log*
+
+# Do not track database data
+.docker/mariadb/data/*
+
+# Ignore post and user files
+app/public/c_data
+
+
+# Do not ignore directories that contain a .gitkeep file
+# (to keep empty directories in the repository)
+!**/.gitkeep
