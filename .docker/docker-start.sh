@@ -27,7 +27,7 @@ for arg in "$@"; do
 		*)
 			printf "\nUsage: $(basename "$0") [--env=name] [--rebuild] [--daemon]\n"
 			printf "Options:\n"
-			printf "  --env			Specifies the docker-compose environment to use (e.g., --env=dev)\n"
+			printf "  --env			Specifies the docker-compose environment to use (e.g., --env=samp-compose.dev.yml)\n"
 			printf "  --rebuild		Forces the rebuilding of images and the recreation of containers\n"
 			printf "	NOTE: If you have selected a different environment than usual, you will need to use this option for the changes to apply correctly.\n"
 			printf "	Indeed, since the container names are the same, changing the environment without rebuilding will actually start the containers of the previous environment.\n"
@@ -53,29 +53,22 @@ fi
 # If the environment is not specified
 if [ -z "$env" ]; then
 	printf "\nChoose the docker-compose environment to use:\n"
-	# List files starting with docker-compose, then print in parentheses what is between docker-compose. and .yml without the extension
-	ls -1 docker-compose*.yml | awk -F 'docker-compose.' '{printf " - %s\n", $2}'
+	# List all the yml files in the current directory and prompt the user to choose one
+	select file in $(ls -1 *.yml); do
+		# If the user has chosen a file
+		if [ -n "$file" ]; then
+			# Get the name of the file
+			docker_choice=$file
+			break
+		else
+			printf "\nInvalid choice. Please try again.\n"
+		fi
+	done
 
-	# Ask the user to choose a docker-compose
-	docker_choice=""
-	read -p "Environment: " docker_choice
 else
 	docker_choice=$env
 fi
 
-# If no Docker Compose configuration can be found with this environment name
-while [ ! -f "docker-compose.$docker_choice.yml" ] && [ ! -f "docker-compose.$docker_choice" ] && [ ! -f "docker-compose$docker_choice.yml" ]; do
-	printf "There is no composition with this name!\n"
-	printf "Names searched: docker-compose.$docker_choice.yml, docker-compose.$docker_choice, docker-compose$docker_choice.yml\n"
-	read -p "Environment: " docker_choice
-done
-if [ -f "docker-compose.$docker_choice" ]; then
-	docker_choice=docker-compose.$docker_choice
-elif [ -f "docker-compose$docker_choice.yml" ]; then
-	docker_choice=docker-compose$docker_choice.yml
-else
-	docker_choice=docker-compose.$docker_choice.yml
-fi
 printf "\nYou have chosen: $docker_choice\n"
 
 # If the user wants to force the rebuilding of images and the recreation of containers

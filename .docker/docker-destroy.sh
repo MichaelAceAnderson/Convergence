@@ -26,32 +26,20 @@ done
 # If the environment is not specified
 if [ -z "$env" ]; then
 	printf "\nChoose the docker-compose environment to use:\n"
-	# List files starting with docker-compose, then printf in parentheses what is between docker-compose. and .yml without the extension
-	ls -1 docker-compose*.yml | awk -F 'docker-compose.' '{printf " - %s\n", $2}'
+	# List all the yml files in the current directory and prompt the user to choose one
+	select file in $(ls -1 *.yml); do
+		# If the user has chosen a file
+		if [ -n "$file" ]; then
+			# Get the name of the file
+			docker_choice=$file
+			break
+		else
+			printf "\nInvalid choice. Please try again.\n"
+		fi
+	done
 
-	# Ask the user to choose a docker-compose
-	docker_choice=""
-	read -p "Environment: " docker_choice
 else
 	docker_choice=$env
-fi
-
-# If no Docker Compose configuration can be found with this environment name
-if [ ! -f "$docker_choice" ] && [ ! -f "docker-compose.$docker_choice.yml" ] && [ ! -f "docker-compose.$docker_choice" ] && [ ! -f "docker-compose$docker_choice.yml" ]; then
-	printf "There is no composition with this name!\n"
-	exit 1
-fi
-if [ -f "docker-compose.$docker_choice" ]; then
-	docker_choice=docker-compose.$docker_choice
-elif [ -f "docker-compose$docker_choice.yml" ]; then
-	docker_choice=docker-compose$docker_choice.yml
-elif [ -f "docker-compose.$docker_choice.yml" ]; then
-	docker_choice=docker-compose.$docker_choice.yml
-elif [ -f "$docker_choice" ]; then
-	docker_choice=$docker_choice
-else
-	printf "No docker-compose file found for $docker_choice\n"
-	exit 1
 fi
 
 # Shut down the containers of the specified environment

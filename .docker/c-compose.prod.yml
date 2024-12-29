@@ -14,19 +14,6 @@ services:
     volumes:
       - c-mariadb-data:/var/lib/mysql/
 
-  c-adminer-s:
-    container_name: "c-adminer-c"
-    image: adminer
-    env_file:
-      - "adminer/.env.prod"
-    restart: on-failure
-    ports:
-      - 8080:8080
-    networks:
-      - c-back-network
-    depends_on:
-      - c-mariadb-s
-
   c-php-s:
     container_name: "c-php-c"
     build:
